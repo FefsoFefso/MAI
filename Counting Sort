@@ -37,7 +37,7 @@ int main() {
         input[curSize - 1].value = inValue;
         if (inKey > maxValue) {
             maxValue = inKey;
-        }
+        } 
     }
     prefix = new long long[maxValue + 1];
     for (long long i = 0; i <= maxValue; ++i) {
