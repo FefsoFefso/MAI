@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-
+ 
 const int INDEX_SIZE = 6;
 
 struct Input {
