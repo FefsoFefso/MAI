@@ -1,2 +1,2 @@
 # MAI 
-I dont know, but its working 
+I don't know how, but the programs work
