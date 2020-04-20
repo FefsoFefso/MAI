@@ -1,2 +1,3 @@
 # MAI 
-I don't know how, but the programs work
+1) Algo labs (discrete analysis)
+2) OS (windows)
