@@ -20,7 +20,7 @@ private:
     int limb_base_ = 10;
     int cur_id_{};
     int first_not_null_id_{};
-    bool fective_boolean = false;
+    bool fective_boolean_ = false;
 
     void OperationImpl(const std::string &first_number, std::string &second_number, char operation) {
         first_num_ = Init(first_number);
@@ -268,7 +268,7 @@ private:
                 ans[i] = need;
                 std::vector <long long> need_big_num = Init(std::to_string(need));
                 std::vector <long long> mult = GetMult(second_num, need_big_num);
-                std::vector <long long> delta = GetSub(next_num, mult, fective_boolean);
+                std::vector <long long> delta = GetSub(next_num, mult, fective_boolean_);
                 std::swap(next_num, delta);
             }
             ClearNulls(ans);
