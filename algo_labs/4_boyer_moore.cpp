@@ -128,8 +128,8 @@ int main(){
 	std::vector <std::string> pattern;
 	std::string input;  
 	int currentPos = 0;
-    bool isEnter = false;
-    std::getline(std::cin, input);
+    	bool isEnter = false;
+    	std::getline(std::cin, input);
 	int sSize = input.size();
 	while (currentPos < sSize) {
         std::string word; 
