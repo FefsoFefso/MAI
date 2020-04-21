@@ -182,7 +182,7 @@ int main(){
 				if (j < 0) {
 					shift = shiftTable[j + 1];
 				} else {
-                    int bsShift = GetBadSymbolShift(badSymbolTable, text[(curPos + j) % textSize].first, j);
+                    			int bsShift = GetBadSymbolShift(badSymbolTable, text[(curPos + j) % textSize].first, j);
 					shift =  std::max(1, std::max(shiftTable[j + 1], j - bsShift));
 				}
 				needToWrite = shift;
