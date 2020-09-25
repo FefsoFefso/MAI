@@ -1,6 +1,7 @@
 from tkinter import *
 from math import sqrt
 from numpy import arange
+from sys import platform
 
 
 def get_graph_points(a_value):
@@ -36,6 +37,7 @@ def get_graph_points(a_value):
     return points
 
 
+
 class Window:
     def __init__(self, name='lab_name', variables=None):
         self.root = Tk()
@@ -46,8 +48,14 @@ class Window:
         self.canvas = Canvas(self.root, bg='white')
         self.canvas.pack(fill=BOTH, pady=5, padx=5, expand=1)
         self.canvas.bind('<ButtonPress-1>', lambda event: self.canvas.scan_mark(event.x, event.y))
-        self.canvas.bind("<B1-Motion>", lambda event: self.canvas.scan_dragto(event.x, event.y, gain=1))
-        self.canvas.bind("<MouseWheel>", self.zoom)
+        self.canvas.bind('<B1-Motion>', lambda event: self.canvas.scan_dragto(event.x, event.y, gain=1))
+        self.canvas.bind('<Configure>', self.size_change)
+
+        if platform == 'win32':
+            self.canvas.bind('<MouseWheel>', self.zoom)
+        else:
+            self.canvas.bind('<Button-4>', self.linux_zoomer_plus)
+            self.canvas.bind('<Button-5>', self.linux_zoomer_minus)
 
         if variables is not None:
             self.button = Button(self.root, text='Draw', font='Times 12', command=self.draw_graph)
@@ -64,10 +72,30 @@ class Window:
 
             self.equation = Label(text='y^2 = x^2 * (a - x)/(a + x)', font='Times 20')
             self.equation.pack(side=RIGHT, anchor=S, pady=20, expand=1)
+    """
+    def button_press(self, event):
+        self.draw_graph()
+        self.canvas.scan_mark(event.x, event.y)
 
-    def zoom(self, event):
+    def button_move(self, event):
+        self.canvas.scan_dragto(event.x, event.y, gain=1)
+        self.draw_graph()
+    """
+
+    def size_change(self, event):
+        self.draw_graph()
+
+    def windows_zoom(self, event):
         factor = 1.001 ** event.delta
         self.canvas.scale(ALL, event.x, event.y, factor, factor)
+
+    def linux_zoomer_plus(self,event):
+        self.canvas.scale("all", event.x, event.y, 1.1, 1.1)
+        self.canvas.configure(scrollregion = self.canvas.bbox("all"))
+    
+    def linux_zoomer_minus(self,event):
+        self.canvas.scale("all", event.x, event.y, 0.9, 0.9)
+        self.canvas.configure(scrollregion = self.canvas.bbox("all"))
 
     def draw_current_graph(self, points_list, a_value):
         w = self.canvas.winfo_width()
@@ -106,12 +134,17 @@ class Window:
                                     width=2)
 
     def draw_cords(self):
-        c_w = self.canvas.winfo_width() // 2
-        c_h = self.canvas.winfo_height() // 2
-        self.canvas.create_line(c_w, c_h, c_w, 2000, dash=(25, 25))
-        self.canvas.create_line(c_w, c_h, 2500, c_h, dash=(25, 25))
-        self.canvas.create_line(c_w, c_h, c_w, -1500, dash=(25, 25))
-        self.canvas.create_line(c_w, c_h, -1500, c_h, dash=(25, 25))
+        w = self.canvas.winfo_width()
+        h = self.canvas.winfo_height()
+        c_w = w // 2
+        c_h = h // 2
+        self.canvas.create_line(c_w, c_h, c_w, 2500, dash=(25, 25)) # down
+        self.canvas.create_line(c_w, c_h, w - 4, c_h, dash=(25, 25), arrow=LAST, arrowshape="10 20 10") # ->
+        self.canvas.create_text(w - 12, c_h + 15, font='Times 20', text='x')
+        self.canvas.create_line(c_w, c_h, c_w, 4, dash=(25, 25), arrow=LAST, arrowshape="10 20 10") # up
+        self.canvas.create_text(c_w + 17, 12, font='Times 20', text='y')
+        self.canvas.create_line(c_w, c_h, -1500, c_h, dash=(25, 25)) # <-
+        
 
     def draw_graph(self):
         try:
@@ -120,7 +153,7 @@ class Window:
             self.draw_cords()
             self.draw_current_graph(get_graph_points(val), val)
         except:
-            self.text.insert('0', '0')
+            pass
 
     def show_window(self):
         self.root.mainloop()
