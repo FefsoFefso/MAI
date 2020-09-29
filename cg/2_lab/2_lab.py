@@ -5,7 +5,7 @@ import numpy as np
 figure = plt.figure(figsize=(8, 8))
 figure.canvas.set_window_title('2 laba')
 
-axis = figure.add_subplot(111, projection='3d') # vertices of a pyramid 
+axis = figure.add_subplot(111, projection='3d')
 
 v = np.array([[0, 0, 1], 
     [1.0, 0.0, -1], 
@@ -24,7 +24,7 @@ v = np.array([[0, 0, 1],
     [0.6691306063588585, -0.743144825477394, -1], 
     [0.913545457642601, -0.40673664307580015, -1]])
 
-axis.scatter3D(v[:, 0], v[:, 1], v[:, 2]) # generate list of sides' polygons of our pyramid 
+axis.scatter3D(v[:, 0], v[:, 1], v[:, 2])
 
 verts = [[v[0],v[1], v[2]], 
         [v[0], v[2], v[3]], 
@@ -41,7 +41,7 @@ verts = [[v[0],v[1], v[2]],
         [v[0], v[13], v[14]],
         [v[0], v[14], v[15]],
         [v[0], v[15], v[1]],
-        [v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], v[12], v[13], v[14], v[15]]] # plot sides 
+        [v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], v[12], v[13], v[14], v[15]]]
 
 axis.add_collection3d(Poly3DCollection(verts, edgecolors='black', linewidths=1.5, alpha=1, facecolors='white')) 
 
