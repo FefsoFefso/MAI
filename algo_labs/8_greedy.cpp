@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 
-typedef struct TSPolynom{
+struct TSPolynom{
     std::vector <double> coefs;
     double cost;
     int id;
