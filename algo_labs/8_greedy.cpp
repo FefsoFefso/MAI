@@ -2,11 +2,11 @@
 #include <vector>
 #include <algorithm>
 
-struct TSPolynom{
+struct TPolynom{
     std::vector <double> coefs;
     double cost;
     int id;
-}TPolynom;
+};
 
 int main() {
     std::ios::sync_with_stdio(false);
