@@ -1,0 +1,17 @@
+(defun preorder (fun lst tree)
+  (tree-equal tree tree
+              :test (lambda (element-1 element-2)
+                      (declare (ignore element-2))
+                      (funcall fun lst element-1)
+                      t)))
+
+(defun add (lst val)
+    (nconc lst (list val)))
+
+(defun tree-similar-p (first_tree second_tree)
+    (setq first_preorder (list '()))
+    (setq second_preorder (list '()))
+    (preorder 'add first_preorder first_tree)
+    (preorder 'add second_preorder second_tree)
+    (equal (remove nil first_preorder) (remove nil second_preorder))
+    )
